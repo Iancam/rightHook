@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/12.1.0/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js add @types/chrono-node
+  /usr/local/Cellar/node/12.1.0/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js add yaml-js @types/yaml-js
 
 PATH: 
   /Users/iancampbell/.rvm/gems/ruby-2.4.1/bin:/Users/iancampbell/.rvm/gems/ruby-2.4.1@global/bin:/Users/iancampbell/.rvm/rubies/ruby-2.4.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS:/Users/iancampbell/.go/bin:/usr/local/opt/go/libexec/bin:/Users/iancampbell/.rvm/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fchrono-node: Not found
+  Error: https://registry.yarnpkg.com/@types%2fyaml-js: Not found
       at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:66091:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:129590:22)
       at Request.emit (events.js:180:13)
@@ -40,11 +40,14 @@ npm manifest:
     "dependencies": {
       "chrono-node": "^1.3.11",
       "commander": "^2.20.0",
+      "commander-completion": "^1.0.1",
       "js-yaml": "^3.13.1",
+      "lodash": "^4.17.11",
       "typescript": "^3.5.2"
     },
     "devDependencies": {
       "@types/js-yaml": "^3.12.1",
+      "@types/lodash": "^4.14.134",
       "@types/node": "^12.0.8",
       "ts-node-dev": "^1.0.0-pre.40"
     }
@@ -62,6 +65,11 @@ Lockfile:
     version "3.12.1"
     resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.12.1.tgz#5c6f4a1eabca84792fbd916f0cb40847f123c656"
     integrity sha512-SGGAhXLHDx+PK4YLNcNGa6goPf9XRWQNAUUbffkwVGGXIxmDKWyGGL4inzq2sPmExu431Ekb9aEMn9BkPqEYFA==
+  
+  "@types/lodash@^4.14.134":
+    version "4.14.134"
+    resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.134.tgz#9032b440122db3a2a56200e91191996161dde5b9"
+    integrity sha512-2/O0khFUCFeDlbi7sZ7ZFRCcT812fAeOLm7Ev4KbwASkZ575TDrDcY7YyaoHdTOzKcNbfiwLYZqPmoC4wadrsw==
   
   "@types/node@^12.0.8":
     version "12.0.10"
@@ -133,10 +141,30 @@ Lockfile:
     dependencies:
       moment "2.21.0"
   
+  clone@~0.1.16:
+    version "0.1.19"
+    resolved "https://registry.yarnpkg.com/clone/-/clone-0.1.19.tgz#613fb68639b26a494ac53253e15b1a6bd88ada85"
+    integrity sha1-YT+2hjmyaklKxTJT4Vsaa9iK2oU=
+  
+  commander-completion@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/commander-completion/-/commander-completion-1.0.1.tgz#e6d9bc88d4e1c2ec88661d720cfaf18fba56c686"
+    integrity sha1-5tm8iNThwuyIZh1yDPrxj7pWxoY=
+    dependencies:
+      completion "~1.0.1"
+  
   commander@^2.20.0:
     version "2.20.0"
     resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
     integrity sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
+  
+  completion@~1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/completion/-/completion-1.0.1.tgz#428e7b7514d2656a6991a7d4f28a9beebcce1c26"
+    integrity sha1-Qo57dRTSZWppkafU8oqb7rzOHCY=
+    dependencies:
+      clone "~0.1.16"
+      line-info "~0.2.0"
   
   concat-map@0.0.1:
     version "0.0.1"
@@ -299,6 +327,11 @@ Lockfile:
       argparse "^1.0.7"
       esprima "^4.0.0"
   
+  line-info@~0.2.0:
+    version "0.2.0"
+    resolved "https://registry.yarnpkg.com/line-info/-/line-info-0.2.0.tgz#121d6f18661924b1f3720a03b18935fbd30d41a2"
+    integrity sha1-Eh1vGGYZJLHzcgoDsYk1+9MNQaI=
+  
   load-json-file@^1.0.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -309,6 +342,11 @@ Lockfile:
       pify "^2.0.0"
       pinkie-promise "^2.0.0"
       strip-bom "^2.0.0"
+  
+  lodash@^4.17.11:
+    version "4.17.11"
+    resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+    integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
   
   loud-rejection@^1.0.0:
     version "1.6.0"
