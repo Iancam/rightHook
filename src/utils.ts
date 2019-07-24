@@ -19,11 +19,6 @@ export const getSourceId = (
 
 export type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export type AppState = {
-  listMetaData: { [x: string]: sourceList | undefined };
-  lists: { [x: string]: { [x: string]: Todo } | undefined };
-};
-
 export type parser = <T extends Grammar>(
   g: T
 ) => (

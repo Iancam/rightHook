@@ -1,8 +1,10 @@
-import { Grammar, wordInfo, Without } from "./utils";
-import { Chrono } from "chrono-node";
-import { parse } from "./utils";
+import { Grammar, Without } from "./utils";
 import _ from "lodash";
 import uuidv5 from "uuid/v5";
+import { TabTabEnvParse } from ".";
+import chalk from "chalk";
+import { AppState } from "./state";
+import tabtab from "tabtab";
 // import _ from "lodash";
 
 export interface todoGrammar extends Grammar {
@@ -82,13 +84,41 @@ const predicate = <P extends Grammar, T extends grammarResult<P>>(
 
 export const matchesTodo = (query: Without<Todo, "id">) => (item: Todo) => {};
 
-const getCompletions = <T>(collection: any[], parser: (x: string) => T) => (
-  info: { line: string; words: string[]; word: wordInfo },
-  cb: (error: any, success: any) => void
-) => {
-  const query = parser(info.word.partialLeft);
-  const matches = collection.filter(predicate(query));
-  console.log(matches);
+export const getCompletions = (state: AppState) => (info: TabTabEnvParse) => {
+  if (!info.complete) return;
+  const command = info.line.split(" ")[0];
+  const completers = {
+    list: ({ partial }: TabTabEnvParse) =>
+      Object.keys(state.listMetaData)
+        .filter(listName => listName.startsWith(partial))
+        .map(str => str.replace(partial, chalk.blue(partial))),
+    todo: ({ prev, partial }: TabTabEnvParse) => {
+      const pullFromId = state.listMetaData[prev].pullFrom;
+      const pullFrom = pullFromId
+        ? state.lists[pullFromId]
+        : Object.values(state.lists).reduce((prev, curr) => {
+            return { ...prev, ...curr };
+          }, {});
+      return Object.entries(pullFrom)
+        .filter(
+          ([id, { text }]) => id.startsWith(partial) || text.startsWith(partial)
+        )
+        .map(
+          ([id, { text }]) =>
+            id.replace(partial, chalk.blue(partial)) +
+            ":" +
+            text.replace(partial, chalk(partial))
+        );
+    }
+  };
+
+  const completionsOrdering = { list: "list", todo: "list todo" };
+  const commandList = completionsOrdering[command].split(" ");
+  const completerKey =
+    commandList[info.words] || commandList[commandList.length - 1];
+  const log = completers[completerKey](info);
+  tabtab.log(log);
+  return log;
 };
 
 export const Todo = (info: Without<Todo, "id">) => {
