@@ -52,7 +52,6 @@ export type Todo = {
 };
 
 export type sourceList = {
-  grammar?: Grammar;
   id: string;
   pullFrom?: string;
 };
